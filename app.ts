@@ -1,35 +1,39 @@
-type Combinable = number | string;//This is Type Alias
-type CombinableResult = 'as-number' | 'as-text';//This is Type Alias
-type User = { name: string; age: number };//We can define our own type and use it to declare variables
-
-function greet(user: User) { 
-     console.log('Hi, I am ' + user.name +' and my age is '+user.age);
-} 
-
-function isOlder(user: User, checkAge: number) { 
-     return checkAge > user.age;
-    
+function add(n1: number,n2: number){
+    return n1 + n2;
 }
 
-greet({ name: 'Vijay', age: 30 });
-const result = isOlder({ name: 'Vijay', age: 30 },25);
-console.log(result);
-
-function combine(input1: Combinable,input2: Combinable, resultConversion: CombinableResult){
-    let result;
-    if(typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number'){
-        result = +input1 + +input2;
-    }else {
-        result = input1.toString() + input2.toString();
-    }
-    return result;
+function printResult(num: number){
+    console.log('Result is '+num);
 }
 
-const combinedAges = combine(30,26,'as-number');
-console.log(combinedAges);
+printResult(add(10,15));
 
-const combinedStringAges = combine('30','26','as-number');
-console.log(combinedStringAges);
+let combinedResult;
+combinedResult = add;//Assign a function as a Type
+printResult(combinedResult(10,15));//Call that function with variable name
 
-const combinedNames = combine('Vijay','Kumar','as-text');
-console.log(combinedNames);
+//app.js:12 Uncaught TypeError: combinedResult is not a function
+//combinedResult = 5;
+//printResult(combinedResult(10,15));//Call that function with variable name
+
+//Undefined
+//combinedResult = printResult;//Assign a function as a Type
+//printResult(combinedResult(10,15));//Call that function with variable name
+
+//To overcome this we can define it Function type
+let combinedValues: Function;
+combinedValues = add;//Assign a function as a Type
+printResult(combinedValues(15,15));//Call that function with variable name
+
+//But since we have declared it as Function type means it can accept any funtion
+combinedValues = printResult;
+printResult(combinedValues(100));//Call that function with variable name
+
+//To overcome this we can define it Function type
+//Function Types are the types which defines the function regarding the parameters and the return type of that function.
+
+let combine: (a: number,b: number) => number;
+combine = add;
+//combine = printResult;//It gives error now since combine can only accept function with two parameter and number as return type
+printResult(combine(50,50));
+
