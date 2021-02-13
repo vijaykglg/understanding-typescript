@@ -12,3 +12,10 @@ console.log(userInput);
 if(typeof userInput === 'string'){
     userName = userInput;
 }
+
+function generateError(errorMessage: string, errorCode: number): never{
+    throw { message: errorMessage,code: errorCode};
+    //while(true){}
+}
+
+generateError('There is an ERROR!',500);
