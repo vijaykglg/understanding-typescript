@@ -23,6 +23,14 @@ class Department{
     }
 }
 
+class ITDepartment extends Department{
+    admins: string[];//this class field is specific to ITDepartment class
+    constructor(id: string,admins: string[]){
+        super(id,'IT');
+        this.admins = admins;
+    }
+}
+
 const accounting = new Department('d1','Accounting');
 accounting.describe();
 accounting.addEmployee('Vijay');
@@ -32,6 +40,36 @@ accounting.addEmployee('Kumar');
 
 accounting.printEmployees();
 
+const itDepartment = new ITDepartment('d1',['Max']);
+itDepartment.describe();
+itDepartment.addEmployee('Max');
+itDepartment.addEmployee('Milan');
+
+//accounting.employees[2] = 'Gupta';//If not private then we can access the filed out side of the class
+
+itDepartment.printEmployees();
+console.log(itDepartment);
+
+class AccountingDepartment extends Department{
+    constructor(id: string,public reports: string[]){
+        super(id,'Accounting');
+    }
+
+    addReports(text: string){
+        this.reports.push(text);
+    }
+
+    printReports(){
+        console.log(this.reports);
+    }
+}
+
+const accountingDept = new AccountingDepartment('d2',[]);
+accountingDept.addEmployee('Trump');
+accountingDept.addEmployee('Milenia');
+accountingDept.addReports('Something went wring...');
+accountingDept.printReports();
+console.log(accountingDept);
 
 /* 'this' refers to the calling object.
 If you assign your class method to another copy object then 'this' will not be able to read the fields which is not available in your copied object. */
