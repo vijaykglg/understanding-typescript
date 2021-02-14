@@ -51,8 +51,25 @@ itDepartment.printEmployees();
 console.log(itDepartment);
 
 class AccountingDepartment extends Department{
+    private lastReport: string;
+
+    get getLastReport(){
+        if(this.lastReport){
+            return this.lastReport;
+        }
+        throw new Error('No Report Found!!');
+    }
+
+    set setLastReport(value: string){
+        if(!value){
+            throw new Error('Please enter a valid value');
+        }
+        this.addReports(value);
+    }
+
     constructor(id: string,public reports: string[]){
         super(id,'Accounting');
+        this.lastReport = reports[0];
     }
 
     addEmployee(employee: string){
@@ -63,6 +80,7 @@ class AccountingDepartment extends Department{
 
     addReports(text: string){
         this.reports.push(text);
+        this.lastReport = text;
     }
 
     printReports(){
@@ -74,7 +92,10 @@ const accountingDept = new AccountingDepartment('d2',[]);
 accountingDept.addEmployee('Trump');
 accountingDept.addEmployee('Milenia');
 accountingDept.addEmployee('Max');//This will not be added to the employee array
-accountingDept.addReports('Something went wring...');
+
+accountingDept.addReports('Something went wrong...');
+accountingDept.getLastReport;
+accountingDept.setLastReport = 'Year End Report';
 accountingDept.printReports();
 console.log(accountingDept);
 
