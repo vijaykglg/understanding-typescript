@@ -2,7 +2,7 @@ class Department{
     //we can use constructor to define the class fields directly
     /* private id: string;
     private name: string; */
-    private employees: string[] = [];
+    protected employees: string[] = [];
 
     constructor(private readonly id: string,public name: string){
         //this.name = s;
@@ -55,6 +55,12 @@ class AccountingDepartment extends Department{
         super(id,'Accounting');
     }
 
+    addEmployee(employee: string){
+        if(employee !== 'Max'){
+            this.employees.push(employee);    
+        }
+    }
+
     addReports(text: string){
         this.reports.push(text);
     }
@@ -67,6 +73,7 @@ class AccountingDepartment extends Department{
 const accountingDept = new AccountingDepartment('d2',[]);
 accountingDept.addEmployee('Trump');
 accountingDept.addEmployee('Milenia');
+accountingDept.addEmployee('Max');//This will not be added to the employee array
 accountingDept.addReports('Something went wring...');
 accountingDept.printReports();
 console.log(accountingDept);
