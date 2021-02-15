@@ -1,31 +1,23 @@
-
-interface Named{
-    readonly name: string;
-}
-
-interface Greetable extends Named{
-    greet(phrase: string): void;
-}
-
-class Person implements Greetable{
+type Admin = {
     name: string;
-    age = 30;
-    constructor(name: string){
-        this.name = name;
-    }
+    privileges: string[];
+};
 
-    greet(phrase: string){
-        console.log(phrase +' '+this.name);
-    }
-}
+type Employee = {
+    name: string;
+    startDate: Date;
+};
 
-let user1: Greetable;
-user1 = new Person('VIJAY GUPTA');
-user1.greet('Hi There - I am');
+type ElevatedEmployee = Admin & Employee;//Intersection Type containes the common fileds 
 
-let user2: Greetable;
-user2 = new Person('KUMAR');
-user2.greet('Hi There - I am');
+const e1: ElevatedEmployee = {
+    name: 'Vijay',
+    privileges: [''],
+    startDate: new Date()
+};
 
-console.log(user1 === user2);//gives false
-console.log(user1 instanceof Person);
+type CombinableType = String | number;
+type Numeric = number | boolean;
+
+type Universal = CombinableType & Numeric;//Interctions Type for primitive data types.
+
